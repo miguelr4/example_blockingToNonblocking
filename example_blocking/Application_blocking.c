@@ -101,15 +101,15 @@ void Application_loop(Application* app, HAL* hal)
         LED_toggle(&hal->launchpadLED1);
     }
 
-    // Turn on the RGB Red LEDs (LLR) ONLY WHEN LB2 is pressed
+    // Turn on the Boosterpack RGB Red LED (LBR) ONLY WHEN LB2 is pressed
     // This is a simple logic which has no memory
     if (Button_isPressed(&hal->launchpadS2))
     {
-        LED_turnOn(&hal->launchpadLED2Red);
+        LED_turnOn(&hal->boosterpackRed);
     }
     else
     {
-        LED_turnOff(&hal->launchpadLED2Red);
+        LED_turnOff(&hal->boosterpackRed);
     }
 
     // Toggle the RGB Green LED on Launchpad (LLG) when the timer expires
