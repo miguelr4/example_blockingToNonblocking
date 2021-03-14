@@ -108,11 +108,11 @@ void Application_loop(Application* app, HAL* hal)
     // This is a simple logic which has no memory
     if (Button_isPressed(&hal->launchpadS2))
     {
-        LED_turnOn(&hal->boosterpackRed);
+        LED_turnOn(&hal->boosterpackBlue);
     }
     else
     {
-        LED_turnOff(&hal->boosterpackRed);
+        LED_turnOff(&hal->boosterpackBlue);
     }
 
     // Toggle the RGB Green LED on Launchpad (LLG) when the timer expires
@@ -137,7 +137,7 @@ void Application_loop(Application* app, HAL* hal)
             {
                 // gradually increase green and reduce blue
                 g = frameIndex*2;
-                b = 254 - frameIndex*2;
+                b = 254 - g;
 
                 Graphics_setForegroundColor(&app->gfx.context, colormix(r,g,b));
                 Graphics_drawLineH(&app->gfx.context, 0, 127, (frameIndex+frameOffset)%128);

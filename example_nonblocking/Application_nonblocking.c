@@ -112,11 +112,11 @@ void Application_loop(Application* app, HAL* hal)
     // This is a simple logic which has no memory
     if (Button_isPressed(&hal->launchpadS2))
     {
-        LED_turnOn(&hal->boosterpackRed);
+        LED_turnOn(&hal->boosterpackBlue);
     }
     else
     {
-        LED_turnOff(&hal->boosterpackRed);
+        LED_turnOff(&hal->boosterpackBlue);
     }
 
 
