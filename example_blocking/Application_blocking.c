@@ -95,10 +95,13 @@ unsigned colormix(unsigned r,unsigned g,unsigned b) {
  */
 void Application_loop(Application* app, HAL* hal)
 {
+    static bool pause = false;
+
     // LED1 is toggled whenever Launchpad S1 is tapped (goes from released to pressed)
     // This is based on an FSM for push-button as well as a debouncing FSM
     if (Button_isTapped(&hal->launchpadS1)) {
         LED_toggle(&hal->launchpadLED1);
+        pause = !pause;
     }
 
     // Turn on the Boosterpack RGB Red LED (LBR) ONLY WHEN LB2 is pressed
@@ -123,22 +126,25 @@ void Application_loop(Application* app, HAL* hal)
     unsigned int r, g, b;
     r = 25; // red color is kept constant
 
-    int frameIndex = 0;
-    int frameOffset = 0;
+    if (!pause) {
 
-    for (frameOffset =0; frameOffset < 128; frameOffset++)
-    {
-        for (frameIndex = 0; frameIndex<128; frameIndex++)
+        int frameIndex = 0;
+        int frameOffset = 0;
+
+        for (frameOffset =0; frameOffset < 128; frameOffset++)
         {
-            // gradually increase green and reduce blue
-            g = frameIndex*2;
-            b = 256 - frameIndex*2;
+            for (frameIndex = 0; frameIndex<128; frameIndex++)
+            {
+                // gradually increase green and reduce blue
+                g = frameIndex*2;
+                b = 254 - frameIndex*2;
 
-            Graphics_setForegroundColor(&app->gfx.context, colormix(r,g,b));
-            Graphics_drawLineH(&app->gfx.context, 0, 127, (frameIndex+frameOffset)%127);
+                Graphics_setForegroundColor(&app->gfx.context, colormix(r,g,b));
+                Graphics_drawLineH(&app->gfx.context, 0, 127, (frameIndex+frameOffset)%128);
+            }
+
         }
 
     }
-
 }
 
