@@ -133,9 +133,9 @@ void Application_loop(Application* app, HAL* hal)
     {
         r = 25;
         g = app->frameIndex*2;
-        b = 256 - app->frameIndex*2;
+        b = 254 - g;
         Graphics_setForegroundColor(&app->gfx.context, colormix(r,g,b));
-        Graphics_drawLineH(&app->gfx.context, 0, 127, (app->frameIndex+app->frameOffset)%127);
+        Graphics_drawLineH(&app->gfx.context, 0, 127, (app->frameIndex+app->frameOffset)%128);
 
 
         app->frameIndex++;
